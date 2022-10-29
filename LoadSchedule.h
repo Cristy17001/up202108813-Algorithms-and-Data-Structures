@@ -36,7 +36,7 @@ void loadSchedule(Manager& m)
         getline(file, file_text);
         string type = file_text;
 
-        if (classCode.empty())
+        if (!classCode.empty())
         {
             UcTurma u = UcTurma(ucCode, classCode);
             ClassSchedule c = ClassSchedule(u, weekDay, startHour, duration, type);

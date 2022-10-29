@@ -34,7 +34,7 @@ using namespace std;
 
 
         if (mecaNumber != mecaNumber_ant and flag) {
-            Student s = Student(mecaNumber_ant, studentName_ant, l, "Name");
+            Student s = Student(mecaNumber_ant, studentName_ant, l);
             m.add_Student(s);
             l.clear();
             UcTurma u = UcTurma(ucCode, classCode);

@@ -11,7 +11,6 @@
 
 #include "Manager.h"
 #include "LoadSclasses.h"
-#include "UcTurma.h"
 #include "LoadSchedule.h"
 #include "ClassOcupation.h"
 #include "StudentSchedule.h"

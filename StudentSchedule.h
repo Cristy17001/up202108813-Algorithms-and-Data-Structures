@@ -18,7 +18,7 @@ void studentSchedule(const Manager& m)
     cin >> meca; cout << endl;
 
     bool error = false;
-    if (meca.length() != 9 || !(regex_search(meca, regex("2[0-9]{8}")))) {error = true; cout << "INVALID MECANUMBER!" << endl;}
+    if (!(regex_search(meca, regex("2[0-9]{8}")))) {error = true; cout << "INVALID MECANUMBER!" << endl;}
     if (error) return;
 
     //Finding the student in LogN time using predicate in a lambda function
