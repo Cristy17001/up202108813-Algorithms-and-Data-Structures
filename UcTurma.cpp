@@ -19,3 +19,4 @@ char UcTurma::get_year() {return classCode_[0];}
 
 //Student Operator UcTurma Implementation
 bool UcTurma::operator==(const UcTurma& t) const {return (t.get_classCode() == classCode_ && t.get_ucCode()== ucCode_);}
+bool UcTurma::operator<(const UcTurma& t) const {return ucCode_ < t.get_ucCode();}

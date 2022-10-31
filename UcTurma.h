@@ -28,6 +28,7 @@ public:
 
     //Student Operator UcTurma
     bool operator==(const UcTurma& t) const;
+    bool operator<(const UcTurma& t) const;
 
 
 };

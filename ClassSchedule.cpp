@@ -1,6 +1,7 @@
 #include "ClassSchedule.h"
 
 //ClassSchedule Constructor Implementation
+ClassSchedule::ClassSchedule() {ucTurma_ = UcTurma(); weekDay_ = "Default"; startHour_ = 0; duration_ = 0; type_ = "Default";}
 ClassSchedule::ClassSchedule(UcTurma ucTurma, std::string weekDay, double startHour, double duration, std::string type)
 {ucTurma_ = ucTurma; weekDay_ = weekDay; startHour_ = startHour; duration_ = duration; type_ = type;}
 
@@ -17,3 +18,5 @@ std::string ClassSchedule::get_weekday() const {return weekDay_;}
 double ClassSchedule::get_startHour() const {return startHour_;}
 double ClassSchedule::get_duration() const {return duration_;}
 std::string ClassSchedule::get_type() const {return type_;}
+double ClassSchedule::get_endHour() const {return startHour_+duration_;}
+

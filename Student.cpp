@@ -21,3 +21,21 @@ bool Student::operator<(const Student& s) const {
     {return mecaNumber_ < s.mecaNumber_;}
 }
 
+//Student Methods Implementation
+bool Student::inside_turm(const UcTurma& u) const {
+    for (auto e: turm_) {if (e == u) return true;}
+    return false;
+}
+
+bool Student::already_on_uc(const UcTurma& u) const {
+    //if student already in a class of that uc. A student cannot be at 2 different classes in the same UC
+    for (auto e: turm_) {
+        if (e.get_ucCode() == u.get_ucCode()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+

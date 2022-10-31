@@ -10,3 +10,4 @@ void Request::set_data(std::vector<std::string> data) {data_ = data;}
 //Request Getters Implementation
 std::string Request::get_type() const {return type_;}
 std::vector<std::string> Request::get_data() const {return data_;}
+

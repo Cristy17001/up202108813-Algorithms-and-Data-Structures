@@ -1,23 +1,24 @@
 #include <regex>
 #include <string>
-#include <list>
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <set>
-#include <queue>
 #include <sstream>
 #include <iomanip>
+#include <algorithm>
 
 #include "Manager.h"
 #include "LoadSclasses.h"
 #include "LoadSchedule.h"
+#include "LoadUcs.h"
 #include "ClassOcupation.h"
 #include "StudentSchedule.h"
 #include "RemoveStudent.h"
 #include "LogMessage.h"
 #include "ProcessRequests.h"
 #include "DisplayStudentsInClass.h"
+#include "AddStudent.h"
+
 
 using namespace std;
 
@@ -26,10 +27,14 @@ int main()
     Manager m = Manager();
     loadStudentClasses(m);
     loadSchedule(m);
+    loadUcs(m);
     vector<string> log;
+    ofstream log_output;
+    log_output.open("Output_Files/Log_Output.log", ios::app);
 
-
+    string input_aux;
     char choice;
+
     do {
         cout << endl << "====================================================" << endl;
         cout << "\t\t\tOptions:" << endl;
@@ -39,7 +44,10 @@ int main()
         cout << "====================================================" << endl;
 
         cout << "Select your choice: ";
-        cin >> choice;
+        cin >> input_aux;
+        cout << endl;
+        if (input_aux.length() > 1) {cout << "Error Invalid Input! Please Introduce only one caracter!" << endl; choice = '0';}
+        else choice = input_aux[0];
 
         switch (choice) {
             case '1':
@@ -53,7 +61,10 @@ int main()
                 cout << "====================================================" << endl;
 
                 cout << "Select your choice: ";
-                cin >> choice;
+                cin >> input_aux;
+                cout << endl;
+                if (input_aux.length() > 1) {cout << "Error Invalid Input! Please Introduce only one caracter!" << endl; choice = '0';}
+                else choice = input_aux[0];
 
                 switch (choice) {
                     case '1': {
@@ -66,13 +77,17 @@ int main()
                     }
                     case '3':
                         displayStudentsInClass(m);
+                        break;
                     case '4':
                         break;
 
                     case 'b':
                         break;
                     default:
-                        cout << endl << "Error: character not recognised please select one of the options!" << endl;
+                        if (input_aux.length() == 1) {
+                            cout << endl << "Error: character not recognised please select one of the options!" << endl << endl;
+                        }
+                        choice = '0';
                         break;
                 }
                 break;
@@ -88,14 +103,17 @@ int main()
                 cout << "====================================================" << endl;
 
                 cout << "Select your choice: ";
-                cin >> choice;
+                cin >> input_aux;
+                cout << endl;
+                if (input_aux.length() > 1) {cout << "Error Invalid Input! Please Introduce only one caracter!" << endl; choice = '0';}
+                else choice = input_aux[0];
 
                 switch (choice) {
                     case '1':
                         removeStudent(m);
                         break;
                     case '2':
-                        break;
+                        addStudent(m);
                     case '3':
                         break;
                     case '4':
@@ -103,7 +121,10 @@ int main()
                     case 'b':
                         break;
                     default:
-                        cout << endl << "Error: character not recognised please select one of the options!" << endl;
+                        if (input_aux.length() == 1) {
+                            cout << endl << "Error: character not recognised please select one of the options!" << endl << endl;
+                        }
+                        choice = '0';
                         break;
                 }
                 break;
@@ -111,12 +132,49 @@ int main()
             case 'q':
                 cout << endl << "Exiting..." << endl;
                 break;
+
             default:
-                cout << endl << "Error: character not recognised please select one of the options!" << endl << endl;
+                if (input_aux.length() == 1) {
+                    cout << endl << "Error: character not recognised please select one of the options!" << endl << endl;
+                }
+                choice = '0';
                 break;
         }
 
     } while (choice != 'q');
+
     ProcessRequests(log, m);
+    if (!log.empty()) {
+        //Write to logFile the Error's
+        time_t now = time(nullptr);
+        tm *ltm = localtime(&now);
+
+        log_output << "#Software: Gestor Base Dados Algoritmos e Estruturas de Dados\n"
+                      "#Version: 1.0\n"
+                      "#DateTime: " << put_time(ltm, "%d/%m/%Y : %H:%M:%S\n") <<
+                   "#Fields: Day Time Error_message"
+                   << endl << endl;
+
+        for (const string &line: log) { log_output << line << endl; }
+        log_output << endl;
+        log_output.close();
+    }
+    if (!m.get_students().empty())
+    {
+        ofstream students_classesMod;
+        students_classesMod.open("Output_Files/students_classesMod.csv");
+        students_classesMod << "StudentCode,StudentName,UcCode,ClassCode" << endl;
+
+        for (const Student& s: m.get_students())
+        {
+            for (const UcTurma& t: s.get_turm())
+            {
+                students_classesMod << s.get_mecaNumber() << ',' << s.get_name() << ',' << t.get_ucCode() << ',' << t.get_classCode() << endl;
+            }
+
+        }
+        students_classesMod.close();
+    }
+
     return 0;
 }

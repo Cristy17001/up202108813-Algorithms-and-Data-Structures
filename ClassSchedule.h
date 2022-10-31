@@ -11,6 +11,7 @@ private:
 
 public:
     //ClassSchedule Constructor
+    ClassSchedule();
     ClassSchedule(UcTurma ucTurma, std::string weekDay, double startHour, double duration, std::string type);
 
     //ClassSchedule Setters
@@ -26,6 +27,7 @@ public:
     double get_startHour() const;
     double get_duration() const;
     std::string get_type() const;
+    double get_endHour() const;
 
 };
 

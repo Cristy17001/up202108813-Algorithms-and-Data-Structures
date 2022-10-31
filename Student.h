@@ -20,7 +20,7 @@ public:
     void set_mecaNumber(const std::string& mecaNumber);
     void set_name(std::string name);
     void set_turm(std::list<UcTurma> turm);
-    void set_order(std::string order);
+
 
     //Student Getters
     std::string get_mecaNumber() const;
@@ -30,6 +30,10 @@ public:
 
     //Student Operator Overloading
     bool operator<(const Student& s) const;
+
+    //Student Methods
+    bool inside_turm(const UcTurma& u) const;
+    bool already_on_uc(const UcTurma& u) const;
 };
 
 #endif //LOADCLASSES_H_STUDENT_H
