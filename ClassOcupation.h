@@ -52,6 +52,6 @@ void classOcupation(const Manager& m) {
     if (count != 0) {
         cout << "There are " << count << " students at UC " << uc << ", in class number " << cn << " in the " << year << " year!" << endl;
     }
-    else {cout << "Could't find any student for that specific input. Please introduce the data as exemplified!" << endl;}
+    else {cout << "Couldn't find any student for that specific input. Please introduce the data as exemplified!" << endl;}
 }
 

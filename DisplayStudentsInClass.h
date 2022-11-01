@@ -37,7 +37,7 @@ void displayStudentsInClass(const Manager& m) {
     }
 
     if (count == 0) {
-        cout << "Could't find any studdent for class " << cn << " " << year << endl;
+        cout << "Couldn't find any student for class " << cn << " " << year << endl;
     }
 
 }

@@ -14,7 +14,7 @@ void removeStudent(Manager& m)
     cout << "Introduce Class: ";
     cin >> turma; cout << endl;
 
-    cout << "Your Request will be processed when you exit the program, every change made will be one the logfile" << endl;
+    cout << "Your Request will be processed when you exit the program, every change made will be on the logfile" << endl;
 
     vector<string> data = {meca, uc, turma};
     Request r = Request("Remove", data);

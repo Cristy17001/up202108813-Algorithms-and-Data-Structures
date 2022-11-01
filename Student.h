@@ -34,6 +34,7 @@ public:
     //Student Methods
     bool inside_turm(const UcTurma& u) const;
     bool already_on_uc(const UcTurma& u) const;
+    UcTurma get_already_on_uc(const UcTurma& u) const;
 };
 
 #endif //LOADCLASSES_H_STUDENT_H
