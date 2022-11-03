@@ -16,11 +16,12 @@
 #include "RemoveStudent.h"
 #include "LogMessage.h"
 #include "ProcessRequests.h"
-#include "DisplayStudentsInClass.h"
+#include "DisplayStudentsInClassUcYear.h"
 #include "AddStudent.h"
 #include "ClearScreen.h"
 #include "AlterStudent.h"
-
+#include "AlterSetStudents.h"
+#include "StudentsInUcs.h"
 
 using namespace std;
 
@@ -38,13 +39,13 @@ int main()
     char choice;
 
     do {
-        cout << endl << "====================================================" << endl;
+        cout << endl << "=========================================================" << endl;
         cout << "\t\t\tOptions:" << endl;
         cout << "1. Display Possibility's" << endl;
         cout << "2. Modify Database" << endl << endl;
         cout << "Select 'q' to quit!" << endl;
         cout << "Select 'c' to clear!" << endl;
-        cout << "====================================================" << endl;
+        cout << "=========================================================" << endl;
 
         cout << "Select your choice: ";
         cin >> input_aux;
@@ -54,14 +55,14 @@ int main()
 
         switch (choice) {
             case '1':
-                cout << endl << "====================================================" << endl;
+                cout << endl << "=========================================================" << endl;
                 cout << "\t\t\tOptions:" << endl;
                 cout << "1. Display number of students of a given class" << endl;
-                cout << "2. Display schedule of a given student" << endl;
-                cout << "3. Display students in a given class" << endl;
+                cout << "2. Display students in a given class" << endl;
+                cout << "3. Display schedule of a given student" << endl;
                 cout << "4. Display students with more then a given number of UC's" << endl << endl;
                 cout << "Select 'b' to go back!" << endl;
-                cout << "====================================================" << endl;
+                cout << "=========================================================" << endl;
 
                 cout << "Select your choice: ";
                 cin >> input_aux;
@@ -71,11 +72,12 @@ int main()
 
                 switch (choice) {
                     case '1': {classOcupation(m); break;}
-                    case '2': {studentSchedule(m); break;}
 
-                    case '3': {displayStudentsInClass(m); break;}
+                    case '2': {displayStudentsInClassUcYear(m); break;}
 
-                    case '4': break;
+                    case '3': {studentSchedule(m); break;}
+
+                    case '4': {studentsInUcs(m); break;}
 
                     case 'b': break;
 
@@ -89,14 +91,14 @@ int main()
                 break;
 
             case '2':
-                cout << endl << "====================================================" << endl;
+                cout << endl << "=========================================================" << endl;
                 cout << "\t\t\tOptions:" << endl;
                 cout << "1. Remove student from a UC" << endl;
                 cout << "2. Add student to Class/UC" << endl;
                 cout << "3. Change Class/UC of a given student" << endl;
                 cout << "4. Change a set of Class/UC of a given student" << endl << endl;
                 cout << "Select 'b' to go back!" << endl;
-                cout << "====================================================" << endl;
+                cout << "=========================================================" << endl;
 
                 cout << "Select your choice: ";
                 cin >> input_aux;
@@ -111,31 +113,31 @@ int main()
 
                     case '3': {alterStudent(m); break;}
 
-                    case '4': break;
+                    case '4': {alterSetStudents(m); break;}
 
                     case 'b': break;
 
-                    default:
+                    default: {
                         if (input_aux.length() == 1) {
-                            cout << endl << "Error: character not recognised please select one of the options!" << endl << endl;
+                            cout << endl << "Error: character not recognised please select one of the options!" << endl
+                                 << endl;
                         }
-                        choice = '0'; break;
+                        choice = '0';
+                        break;
+                    }
                 }
                 break;
 
-            case 'c':
-                ClearScreen();
-                break;
+            case 'c': {ClearScreen(); break;}
 
-            case 'q':
-                cout << endl << "Exiting..." << endl;
-                break;
+            case 'q': {cout << endl << "Exiting..." << endl; break;}
 
-            default:
+            default:{
                 if (input_aux.length() == 1) {
                     cout << endl << "Error: character not recognised please select one of the options!" << endl << endl;
                 }
                 choice = '0'; break;
+            }
         }
 
     } while (choice != 'q');

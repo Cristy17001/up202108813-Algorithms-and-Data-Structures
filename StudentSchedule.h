@@ -7,7 +7,6 @@ void SchedulePlacment(vector<string>& weekday, const ClassSchedule& schedule)
     string aux = schedule.get_ucTurma().get_ucCode() + '(' + schedule.get_type() + ')';
     weekday[middle] = string(" ", 14 - aux.length() - (14 - aux.length()) / 2) + aux + string(" ", (14 - aux.length()) / 2);
     weekday[last_pos] = "--------------";
-
 }
 
 void studentSchedule(const Manager& m)
@@ -18,7 +17,7 @@ void studentSchedule(const Manager& m)
     cin >> meca; cout << endl;
 
     bool error = false;
-    if (!(regex_search(meca, regex("2[0-9]{8}")))) {error = true; cout << "INVALID MECANUMBER!" << endl;}
+    if (!(regex_match(meca, regex("2[0-9]{8}")))) {error = true; cout << "INVALID MECANUMBER!" << endl;}
     if (error) return;
 
     //Finding the student in LogN time using predicate in a lambda function

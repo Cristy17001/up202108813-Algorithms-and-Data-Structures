@@ -33,8 +33,6 @@ public:
     std::queue<Request> get_requests() const;
     std::list<UcTurma> get_all_ucs() const;
 
-
-
     //Manager Methods
     void add_Student(const Student& s);
     void remove_student(std::set<Student>::iterator start);

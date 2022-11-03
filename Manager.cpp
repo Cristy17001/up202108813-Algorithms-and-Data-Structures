@@ -11,17 +11,11 @@ void Manager::set_schedule(const std::vector<ClassSchedule>& schedule) {schedule
 void Manager::set_requests(const std::queue<Request>& requests) {requests_ = requests;}
 void Manager::set_all_ucs(const std::list<UcTurma>& all_ucs) {all_ucs_ = all_ucs;}
 
-
-
-
 //Manager Getters Implementation
 std::set<Student> Manager::get_students() const {return students_;}
 std::vector<ClassSchedule> Manager::get_schedule() const {return schedule_;}
 std::queue<Request> Manager::get_requests() const {return requests_;}
 std::list<UcTurma> Manager::get_all_ucs() const {return all_ucs_;}
-
-
-
 
 
 //Manager Methods Implementation

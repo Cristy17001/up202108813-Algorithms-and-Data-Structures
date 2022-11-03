@@ -1,14 +1,16 @@
 #include "UcTurma.h"
 
+#include <utility>
+
 //UcTurma Default Constructor Implementation
 UcTurma::UcTurma() {ucCode_ = "default", classCode_ = "default";}
 
 //UcTurma Constructor Implementation
-UcTurma::UcTurma(std::string ucCode, std::string classCode) {ucCode_ = ucCode; classCode_ = classCode;}
+UcTurma::UcTurma(std::string ucCode, std::string classCode) {ucCode_ = std::move(ucCode); classCode_ = std::move(classCode);}
 
 //UcTurma Setters Implementation
-void UcTurma::set_ucCode(std::string ucCode) {ucCode_ = ucCode;}
-void UcTurma::set_classCode_(std::string classCode) {classCode_ = classCode;}
+void UcTurma::set_ucCode(std::string ucCode) {ucCode_ = std::move(ucCode);}
+void UcTurma::set_classCode_(std::string classCode) {classCode_ = std::move(classCode);}
 
 //UcTurma Getters Implementation
 std::string UcTurma::get_ucCode() const {return ucCode_;}

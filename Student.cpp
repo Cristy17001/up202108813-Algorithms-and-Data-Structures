@@ -46,6 +46,3 @@ UcTurma Student::get_already_on_uc(const UcTurma& u) const {
     }
     return u;
 }
-
-
-

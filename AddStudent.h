@@ -18,9 +18,8 @@ void addStudent(Manager& m)
     cout << "How many students should a class be able to have?" << endl;
     cin >> cap; cout << endl;
 
-    cout << "In case this operation creates unbalance between the class's of that UC you want it to do it anyway?(Y/N)" << endl;
+    cout << "In case this operation creates unbalance between the class's of that UC you want it to do it anyway?(y/n)" << endl;
     cin >> balance; cout << endl;
-
 
     cout << "Your Request will be processed when you exit the program, every change made will be on the logfile" << endl;
 

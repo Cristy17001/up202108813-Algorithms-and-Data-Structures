@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-//Type can be "Remove", "Add", "Alter", "AlterSet"
+//Type can be "Remove", "Add", "Alter"
 //Data is where the user input for the given type of request are stored
 
 class Request {

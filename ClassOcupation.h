@@ -17,9 +17,9 @@ void classOcupation(const Manager& m) {
     bool error = false;
 
     //Constrains
-    if (!(regex_search(cn, regex("[0-9]{1,2}")))) {cout << "INVALID CLASS NUMBER!" << endl; error = true;}
-    if (!(regex_search(year, regex("[1-6]{1}")))) {cout << "INVALID YEAR" << endl; error = true;}
-    if (!(regex_search(uc,regex("[A-Z]{1}[.]{1}[A-Z]{3}[0-9]{3}")))) {cout << "INVALID UC!" << endl; error = true;}
+    if (!(regex_match(cn, regex("[0-9]{1,2}")))) {cout << "INVALID CLASS NUMBER!" << endl; error = true;}
+    if (!(regex_match(year, regex("[1-6]{1}")))) {cout << "INVALID YEAR" << endl; error = true;}
+    if (!(regex_match(uc,regex("[A-Z]{1}[.]{1}[A-Z]{3}[0-9]{3}")))) {cout << "INVALID UC!" << endl; error = true;}
     if (error) return;
 
     for (const Student& s: m.get_students()) {
