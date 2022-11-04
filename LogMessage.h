@@ -1,5 +1,4 @@
-std::string LogMessage(const std::string& message)
-{
+string LogMessage(const std::string& message) {
     time_t now = time(nullptr);
     tm *ltm = localtime(&now);
     std::ostringstream oss;

@@ -27,4 +27,4 @@ else(DOXYGEN_FOUND)
 endif(DOXYGEN_FOUND)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
-add_executable(Trabalho_Algortimos main.cpp UcTurma.cpp UcTurma.h Student.cpp Student.h ClassSchedule.cpp ClassSchedule.h Manager.cpp Manager.h LoadSclasses.h LoadSchedule.h ClassOcupation.h Request.h Request.cpp RemoveStudent.h ProcessRequests.h LogMessage.h DisplayStudentsInClass.h LoadUcs.h)
+add_executable(Trabalho_Algortimos main.cpp UcTurma.cpp UcTurma.h Student.cpp Student.h ClassSchedule.cpp ClassSchedule.h Manager.cpp Manager.h Request.h Request.cpp ProcessRequests.h LogMessage.h Loads.cpp Displays.cpp Modifications.cpp)

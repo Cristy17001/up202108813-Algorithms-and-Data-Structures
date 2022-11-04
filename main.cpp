@@ -1,36 +1,21 @@
-#include <regex>
 #include <string>
-#include <fstream>
 #include <iostream>
 #include <vector>
-#include <sstream>
 #include <iomanip>
 #include <algorithm>
 
-#include "Manager.h"
-#include "LoadSclasses.h"
-#include "LoadSchedule.h"
-#include "LoadUcs.h"
-#include "ClassOcupation.h"
-#include "StudentSchedule.h"
-#include "RemoveStudent.h"
-#include "LogMessage.h"
-#include "ProcessRequests.h"
-#include "DisplayStudentsInClassUcYear.h"
-#include "AddStudent.h"
-#include "ClearScreen.h"
-#include "AlterStudent.h"
-#include "AlterSetStudents.h"
-#include "StudentsInUcs.h"
-
 using namespace std;
 
-int main()
-{
+#include "Manager.h"
+#include "LogMessage.h"
+#include "ProcessRequests.h"
+#include "ClearScreen.h"
+
+int main() {
     Manager m = Manager();
-    loadStudentClasses(m);
-    loadSchedule(m);
-    loadUcs(m);
+    m.loadUcs();
+    m.loadSchedule();
+    m.loadStudentClasses();
     vector<string> log;
     ofstream log_output;
     log_output.open("Output_Files/Log_Output.log", ios::app);
@@ -71,13 +56,13 @@ int main()
                 else choice = input_aux[0];
 
                 switch (choice) {
-                    case '1': {classOcupation(m); break;}
+                    case '1': {m.classOcupation(); break;}
 
-                    case '2': {displayStudentsInClassUcYear(m); break;}
+                    case '2': {m.displayStudentsInClassUcYear(); break;}
 
-                    case '3': {studentSchedule(m); break;}
+                    case '3': {m.studentSchedule(); break;}
 
-                    case '4': {studentsInUcs(m); break;}
+                    case '4': {m.studentsInUcs(); break;}
 
                     case 'b': break;
 
@@ -107,13 +92,13 @@ int main()
                 else choice = input_aux[0];
 
                 switch (choice) {
-                    case '1': {removeStudent(m); break;}
+                    case '1': {m.removeStudent(); break;}
 
-                    case '2': {addStudent(m); break;}
+                    case '2': {m.addStudent(); break;}
 
-                    case '3': {alterStudent(m); break;}
+                    case '3': {m.alterStudent(); break;}
 
-                    case '4': {alterSetStudents(m); break;}
+                    case '4': {m.alterSetStudents(); break;}
 
                     case 'b': break;
 
@@ -132,7 +117,7 @@ int main()
 
             case 'q': {cout << endl << "Exiting..." << endl; break;}
 
-            default:{
+            default: {
                 if (input_aux.length() == 1) {
                     cout << endl << "Error: character not recognised please select one of the options!" << endl << endl;
                 }
@@ -158,16 +143,13 @@ int main()
         log_output << endl;
         log_output.close();
     }
-    if (!m.get_students().empty())
-    {
+    if (!m.get_students().empty()) {
         ofstream students_classesMod;
         students_classesMod.open("Output_Files/students_classesMod.csv");
         students_classesMod << "StudentCode,StudentName,UcCode,ClassCode" << endl;
 
-        for (const Student& s: m.get_students())
-        {
-            for (const UcTurma& t: s.get_turm())
-            {
+        for (const Student& s: m.get_students()) {
+            for (const UcTurma& t: s.get_turm()) {
                 students_classesMod << s.get_mecaNumber() << ',' << s.get_name() << ',' << t.get_ucCode() << ',' << t.get_classCode() << endl;
             }
 

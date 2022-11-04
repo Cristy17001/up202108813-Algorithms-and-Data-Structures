@@ -1,6 +1,104 @@
-#include "CheckCap.h"
-#include "CheckBalance.h"
-#include "CheckCompatability.h"
+bool CheckBalance(const Manager& m, string& uc, const UcTurma& temp_turma) {
+    long long min = 2147483646, max = -1;
+    auto students = m.get_students();
+    //Iterate over every class of that uc and count the number of students in it
+    for (const UcTurma& e: m.get_all_ucs()) {
+        //if it is from the same uc
+        if (e.get_ucCode() == uc) {
+            //verify which class it is and count the number of student's in it
+            auto aux = e.get_classCode();
+            UcTurma t = UcTurma(uc, aux);
+            auto count = count_if(students.begin(), students.end(),
+                                  [&t](const Student &stud) -> bool {return stud.inside_turm(t);});
+
+            //if it is the class he is trying to get in then consider one more student
+            if (t == temp_turma) count++;
+
+            if (count > max) {max = count;}
+            if (count < min) {min = count;}
+        }
+    }
+    //Biggest possible difference between the 2 classes from the same UC
+    long long max_diff = max - min;
+    //True -> if balanced
+    //False -> Not balanced
+    return max_diff < 4;
+}
+bool CheckBalance(const Manager& m, string& uc, const UcTurma& enter_turm,const UcTurma& leaving_turm) {
+    //Balance Altering is different because he is leaving one and entering another one
+    long long min = 2147483646, max = -1;
+    auto students = m.get_students();
+    //Iterate over every class of that uc and count the number of students in it
+    for (const UcTurma& e: m.get_all_ucs()) {
+        //if it is from the same uc
+        if (e.get_ucCode() == uc) {
+            //verify which class it is and count the number of student's in it
+            auto aux = e.get_classCode();
+            UcTurma t = UcTurma(uc, aux);
+            auto count = count_if(students.begin(), students.end(),
+                                  [&t](const Student &stud) -> bool {return stud.inside_turm(t);});
+
+            //if it is the class he is trying to get in then consider one more student
+            if (t == enter_turm) count++;
+            //if it is the class he is getting out then consider one less student
+            if (t == leaving_turm) count--;
+
+            if (count > max) {max = count;}
+            if (count < min) {min = count;}
+        }
+    }
+    //Biggest possible difference between the 2 classes from the same UC
+    long long max_diff = max - min;
+    //True -> if balanced
+    //False -> Not balanced
+    return max_diff < 4;
+}
+
+bool CheckCap(Manager& m, UcTurma& turma, int cap) {
+    //count the number of students that have the same class and same UC
+    auto students = m.get_students();
+    auto n_students = count_if(students.begin(), students.end(),
+                               [&turma](const Student &stud) -> bool {return stud.inside_turm(turma);});
+    //verify if it can be added one more student without surpassing cap
+    //True -> meaning it is ok
+    //False -> meaning it is to much
+    int res = ((n_students + 1) < cap) && n_students != 0;
+    return res;
+}
+
+bool CheckCompatability(Manager m, list<UcTurma> actual_turmas, const UcTurma& turma_mod) {
+    //iterate over every schedule, saving every class the student has in one list
+    //iterate over every schedule, saving every schedule of the class we are trying to add to the student
+    list<ClassSchedule> mod_schedule; list<ClassSchedule> actual_schedule;
+
+    //iterate over every schedule
+    for (const ClassSchedule& schedule: m.get_schedule()) {
+        //saving every class the student has in one list
+        for (const UcTurma& turma: actual_turmas) {
+            if (schedule.get_ucTurma() == turma) {actual_schedule.push_back(schedule);}
+        }
+        //saving every schedule of the class we are trying to add to the student
+        if (turma_mod == schedule.get_ucTurma()) {mod_schedule.push_back(schedule);}
+    }
+
+    //verify compatability
+    for (const ClassSchedule& actual: actual_schedule) {
+        for (const ClassSchedule& mod: mod_schedule) {
+            if (actual.get_weekday() == mod.get_weekday()) {
+                //on top -> Modification.end_hour <= Actual.start_hour && Modification.start_hour < Actual.start_hour
+                //on bottom -> Modification.start_hour >= Actual.end_hour && Modification.end_hour > Actual.end_hour
+                //if not compatible then return false
+                if (!((mod.get_endHour() <= actual.get_startHour() && mod.get_startHour() < actual.get_startHour()) ||
+                      (mod.get_startHour() >= actual.get_endHour() && mod.get_endHour() > actual.get_endHour())))
+                {
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
 
 void ProcessRequests(std::vector<std::string>& log, Manager& m) {
     while (!m.get_requests().empty()) {

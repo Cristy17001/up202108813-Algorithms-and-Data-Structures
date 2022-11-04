@@ -4,6 +4,9 @@
 #include <set>
 #include <queue>
 #include <list>
+#include <fstream>
+#include <iostream>
+#include <regex>
 
 #include "Student.h"
 #include "ClassSchedule.h"
@@ -19,7 +22,6 @@ private:
 public:
     //Manager Constructor
     Manager();
-    Manager(const std::set<Student>& students, const std::vector<ClassSchedule>& schedule);
 
     //Manager Setters
     void set_students(const std::set<Student>& students);
@@ -34,14 +36,36 @@ public:
     std::list<UcTurma> get_all_ucs() const;
 
     //Manager Methods
-    void add_Student(const Student& s);
-    void remove_student(std::set<Student>::iterator start);
-    void add_request(const Request& r);
+    /*!
+     * add_Student adds one more student to the set of students of the manager
+     * @param student Const Student variable that contains the student to be added
+     */
+    void add_Student(const Student& student);
+
+    /*!
+     * remove_student removes one student of the set of students in manager
+     * @param ItStudent Student Set Iterator that contains the student to be removed
+     */
+    void remove_student(std::set<Student>::iterator ItStudent);
     Request front_request();
     void pop_request();
-    void add_UC(const UcTurma& t);
 
+    //Loads
+    void loadUcs();
+    void loadSchedule();
+    void loadStudentClasses();
 
+    //Displays
+    void classOcupation();
+    void displayStudentsInClassUcYear();
+    void studentSchedule();
+    void studentsInUcs();
+
+    //Modifications
+    void removeStudent();
+    void addStudent();
+    void alterStudent();
+    void alterSetStudents();
 };
 
 #endif //LOADCLASSES_H_MANAGER_H
