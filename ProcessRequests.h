@@ -1,3 +1,11 @@
+/*!
+ * Responsible to verify if while adding a student to a class at a given UC it causes a difference
+ * grater or equal than 4 between the number of student in that UC
+ * @param m Manager to access the data from the excel and change it
+ * @param uc string the UC for the balance to be check
+ * @param temp_turma const UcTurma the class and UC the student is trying to get in
+ * @return True if the change doesn't cause an unbalance, False otherwise
+ */
 bool CheckBalance(const Manager& m, string& uc, const UcTurma& temp_turma) {
     long long min = 2147483646, max = -1;
     auto students = m.get_students();
@@ -24,6 +32,16 @@ bool CheckBalance(const Manager& m, string& uc, const UcTurma& temp_turma) {
     //False -> Not balanced
     return max_diff < 4;
 }
+
+/*!
+ * Responsible to verify if while changing a student from one class to another at the same UC it causes a difference
+ * grater or equal than 4 between the number of student in that UC
+ * @param m Manager to access the data from the excel and change it
+ * @param uc string the UC for the balance to be check
+ * @param enter_turm const UcTurma the class and UC the student is trying to get in
+ * @param leaving_turm const UcTurma the class and UC the student is trying to be changed from
+ * @return True if the change doesn't cause an unbalance, False otherwise
+ */
 bool CheckBalance(const Manager& m, string& uc, const UcTurma& enter_turm,const UcTurma& leaving_turm) {
     //Balance Altering is different because he is leaving one and entering another one
     long long min = 2147483646, max = -1;
@@ -54,6 +72,14 @@ bool CheckBalance(const Manager& m, string& uc, const UcTurma& enter_turm,const 
     return max_diff < 4;
 }
 
+/*!
+ * Responsible for verifying if adding one student to a given class causes the number of students of a class to be
+ * bigger than the the CAP a number the user inputted representing the maximum number of students a class
+ * @param m Manager to access the data from the excel and change it
+ * @param turma UcTurma the class the student is trying to get in
+ * @param cap int the maximum number of students a class can have, that being a given input by the user
+ * @return True if the student can be add without any problem, False otherwise
+ */
 bool CheckCap(Manager& m, UcTurma& turma, int cap) {
     //count the number of students that have the same class and same UC
     auto students = m.get_students();
@@ -66,6 +92,13 @@ bool CheckCap(Manager& m, UcTurma& turma, int cap) {
     return res;
 }
 
+/*!
+ * Responsible for verifying if adding a given class to a student doesn't cause an overlap between the schedule of that student
+ * @param m Manager to access the data from the excel and change it
+ * @param actual_turmas list UcTurma representing the list of classes and UC the student is inside
+ * @param turma_mod const UcTurma representing the class at a given UC that a student is trying to get in
+ * @return True if there the adding doesn't cause an overlap, False otherwise
+ */
 bool CheckCompatability(Manager m, list<UcTurma> actual_turmas, const UcTurma& turma_mod) {
     //iterate over every schedule, saving every class the student has in one list
     //iterate over every schedule, saving every schedule of the class we are trying to add to the student
@@ -100,6 +133,12 @@ bool CheckCompatability(Manager m, list<UcTurma> actual_turmas, const UcTurma& t
     return true;
 }
 
+/*!
+ * Responsible for processing all the types of request them being "Add", "Remove" and "Alter" and report there execution
+ * to the logfile in other for the user to be able to lookup the changes made in the Log_Output.txt
+ * @param log vector string for storing the output message of the logfile
+ * @param m Manager to access the data from the excel and change it
+ */
 void ProcessRequests(std::vector<std::string>& log, Manager& m) {
     while (!m.get_requests().empty()) {
 

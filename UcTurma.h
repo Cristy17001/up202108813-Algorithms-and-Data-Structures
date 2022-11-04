@@ -50,14 +50,14 @@ public:
     //Student Operator UcTurma
     /*!
      * Student Operator Ucturma
-     * @param t
-     * @return
+     * @param t const UcTurma
+     * @return true if UcTurma equal to the UcTurma passed by argument, false otherwise
      */
     bool operator==(const UcTurma& t) const;
     /*!
-     * Student Operator UcTurma
-     * @param t
-     * @return
+     * Student Operator < check between classes
+     * @param t const UcTurma
+     * @return true if ucCode from this UcTurma < Ucturma passed by argument, false otherwise
      */
     bool operator<(const UcTurma& t) const;
 

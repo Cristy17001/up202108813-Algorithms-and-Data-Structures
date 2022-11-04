@@ -14,6 +14,7 @@ private:
 
 public:
     //Request Constructor
+
     /*!
      * Request default constructor
      * @param type can be "Remove", "Add", "Alter"
@@ -22,6 +23,7 @@ public:
     Request(std::string type, std::vector<std::string> data);
 
     //Request Setters
+
     /*!
      * Request setter for type
      * @param type string that will be assign to the string type of the Request

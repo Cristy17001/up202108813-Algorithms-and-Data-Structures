@@ -20,6 +20,7 @@ public:
     Student(std::string mecaNumber, std::string name, std::list<UcTurma> turm);
 
     //Student Setters
+
     /*!
      * Student setter for mecanumber.
      * @param mecaNumber const string that will be assigned to the string mecaNumber of the Student
@@ -38,6 +39,7 @@ public:
 
 
     //Student Getters
+
     /*!
      * Student getter for mecanumber.
      * @return object of type string referencing to the string mecaNumber of the Student
@@ -56,30 +58,31 @@ public:
 
 
     //Student Operator Overloading
+
     /*!
-     * Student Operator Overloading.
+     * Student Operator < Overloading
      * @param s
-     * @return
+     * @return true if this student < student passed by argument, false otherwise
      */
     bool operator<(const Student& s) const;
 
     //Student Methods
     /*!
      * Responsible to verify if student already in a class.
-     * @param u
-     * @return
+     * @param const UcTurma
+     * @return true if Ucturma already inside the classes of that student
      */
     bool inside_turm(const UcTurma& u) const;
     /*!
      * Responsible to verify if student already in a class of that uc. A student cannot be at 2 different classes in the same UC.
-     * @param u
-     * @return
+     * @param u const UcTurma
+     * @return true if UcTurma passed by argument is already inside the classes of this student, false otherwise
      */
     bool already_on_uc(const UcTurma& u) const;
     /*!
      * Responsible to verify if student already in a class of that uc. A student cannot be at 2 different classes in the same UC.
      * @param u
-     * @return
+     * @return the UcTurma if UcTurma passed by argument is already inside the classes of this student, false otherwise
      */
     UcTurma get_already_on_uc(const UcTurma& u) const;
 };

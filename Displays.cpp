@@ -294,49 +294,99 @@ void Manager::studentSchedule() {
 }
 
 void Manager::studentsInUcs() {
-    string nUcs, order;
+    string nUcs, sortchoice, sortorder;
     cout << "Example: 1, 2, 3, 4, (...), 9" << endl;
     cout << "Introduce a number of UCs: ";
     cin >> nUcs; cout << endl;
-    cout << "Order alphabetically (1) or by mecanumber(2): ";
-    cin >> order; cout << endl;
 
+    cout << "Do you want the students to be display sorted by name or mecanumber? Select 'n' for name or 'm' for mecanumber: ";
+    cin >> sortchoice; cout << endl;
+
+    cout << "Do you want the sorting to be ascending or descending? Select 'a' for ascending or 'd' for descending: ";
+    cin >> sortorder; cout << endl;
+
+    int count = 0;
     bool error = false;
     //Constrains
     if (!(regex_match(nUcs, regex("[0-9]{1}")))) {cout << "INVALID NUMBER!" << endl; error = true;}
-    if (!(regex_match(order, regex("[12]{1}")))) {cout << "INVALID OPTION!" << endl; error = true;}
+    if (!(regex_match(sortchoice, regex("[nm]{1}")))) {cout << "INVALID SORT CHOICE!" << endl; error = true;}
+    if (!(regex_match(sortorder,regex("[ad]{1}")))) {cout << "INVALID SORT ORDER!" << endl; error = true;}
     if (error) return;
 
-    auto name = [](const Student& a, const Student&b) {return a.get_name() < b.get_name(); };
-    std::set<Student, decltype(name) > studentByName(name);
-    auto meca = [](const Student&a, const Student&b) {return a.get_mecaNumber() < b.get_mecaNumber();};
-    std::set<Student, decltype(meca) > studentByMeca(meca);
+    auto cmpna = [](const Student& a, const Student& b) { return a.get_name() < b.get_name(); };
+    auto cmpnd = [](const Student& a, const Student& b) { return a.get_name() > b.get_name(); };
+    auto cmpma = [](const Student &a, const Student &b) { return a.get_mecaNumber() < b.get_mecaNumber(); };
+    auto cmpmd = [](const Student &a, const Student &b) { return a.get_mecaNumber() > b.get_mecaNumber(); };
+
+    std::set<Student, decltype(cmpna)> studentSetNA(cmpna);
+    std::set<Student, decltype(cmpnd)> studentSetND(cmpnd);
+    std::set<Student, decltype(cmpma)> studentSetMA(cmpma);
+    std::set<Student, decltype(cmpmd)> studentSetMD(cmpmd);
+
+    studentSetNA.clear();
+    studentSetND.clear();
+    studentSetMA.clear();
+    studentSetMD.clear();
+
 
     int nUc = stoi(nUcs);
 
-    if (order == "1") {
-        studentByName.clear();
-        for (const Student& s: students_) {
-            if (s.get_turm().size() > nUc) {
-                studentByName.insert(s);
+    if (sortchoice == "n") {
+        if ( sortorder == "a") {
+            for (const Student &s: students_) {
+                if (s.get_turm().size() > nUc) {
+                    studentSetNA.insert(s);
+                    count++;
+                }
             }
         }
-        for (const Student& s: studentByName) {
-            cout << s.get_mecaNumber() << ' ' << s.get_name() << endl;
+        if ( sortorder == "d") {
+            for (const Student& s: students_) {
+                if (s.get_turm().size() > nUc) {
+                    studentSetND.insert(s);
+                    count++;
+                }
+            }
         }
-        if (studentByName.empty()) cout << "Couldn't find any student." << endl;
     }
 
-    else if (order == "2") {
-        studentByMeca.clear();
-        for (const Student& s: students_) {
-            if (s.get_turm().size() > nUc) {
-                studentByMeca.insert(s);
+    else if (sortchoice == "m") {
+        if (sortorder == "a") {
+            for (const Student &s: students_) {
+                if (s.get_turm().size() > nUc) {
+                    studentSetMA.insert(s);
+                    count++;
+                }
             }
         }
-        for(const Student& s: studentByMeca){
-            cout << s.get_mecaNumber() << ' ' << s.get_name() << endl;
+        if (sortorder == "d") {
+            for (const Student &s: students_) {
+                if (s.get_turm().size() > nUc) {
+                    studentSetMD.insert(s);
+                    count++;
+                }
+            }
         }
-        if(studentByMeca.empty()) cout << "Couldn't find any student." << endl;
     }
+
+    for (const Student& studentNA: studentSetNA) {
+        cout << studentNA.get_mecaNumber() << ' ' << studentNA.get_name() << endl;
+    }
+
+    for (const Student& studentND: studentSetND) {
+        cout << studentND.get_mecaNumber() <<' ' << studentND.get_name() << endl;
+    }
+
+    for (const Student& studentMA: studentSetMA) {
+        cout << studentMA.get_mecaNumber() << ' ' << studentMA.get_name() << endl;
+    }
+
+    for (const Student& studentMD: studentSetMD) {
+        cout << studentMD.get_mecaNumber() << ' ' << studentMD.get_name() << endl;
+    }
+
+    if (count == 0) { cout << "Could't find any studdent." << endl; }
+
 }
+
+
