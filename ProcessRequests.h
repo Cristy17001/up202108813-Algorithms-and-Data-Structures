@@ -1,4 +1,5 @@
 /*!
+ * Big O notation -> O(n) - n being the number of students
  * Responsible to verify if while adding a student to a class at a given UC it causes a difference
  * grater or equal than 4 between the number of student in that UC
  * @param m Manager to access the data from the excel and change it
@@ -34,6 +35,7 @@ bool CheckBalance(const Manager& m, string& uc, const UcTurma& temp_turma) {
 }
 
 /*!
+ * Big O notation -> O(n) - n being the number of students
  * Responsible to verify if while changing a student from one class to another at the same UC it causes a difference
  * grater or equal than 4 between the number of student in that UC
  * @param m Manager to access the data from the excel and change it
@@ -73,6 +75,7 @@ bool CheckBalance(const Manager& m, string& uc, const UcTurma& enter_turm,const 
 }
 
 /*!
+ * Big O notation -> O(n) - n being the number of students
  * Responsible for verifying if adding one student to a given class causes the number of students of a class to be
  * bigger than the the CAP a number the user inputted representing the maximum number of students a class
  * @param m Manager to access the data from the excel and change it
@@ -93,6 +96,7 @@ bool CheckCap(Manager& m, UcTurma& turma, int cap) {
 }
 
 /*!
+ * Big O notation -> O(n*x) - n being the number of schedules and x the number of Uc/class's
  * Responsible for verifying if adding a given class to a student doesn't cause an overlap between the schedule of that student
  * @param m Manager to access the data from the excel and change it
  * @param actual_turmas list UcTurma representing the list of classes and UC the student is inside
@@ -134,6 +138,7 @@ bool CheckCompatability(Manager m, list<UcTurma> actual_turmas, const UcTurma& t
 }
 
 /*!
+ * Big O notation -> O(n)
  * Responsible for processing all the types of request them being "Add", "Remove" and "Alter" and report there execution
  * to the logfile in other for the user to be able to lookup the changes made in the Log_Output.txt
  * @param log vector string for storing the output message of the logfile

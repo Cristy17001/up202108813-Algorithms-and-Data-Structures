@@ -16,6 +16,7 @@ public:
     //Request Constructor
 
     /*!
+     * Big O notation -> O(1)
      * Request default constructor
      * @param type can be "Remove", "Add", "Alter"
      * @param data is where the user input for the given type of request are stored
@@ -25,23 +26,28 @@ public:
     //Request Setters
 
     /*!
+     * Big O notation -> O(1)
      * Request setter for type
      * @param type string that will be assign to the string type of the Request
      */
     void set_type(std::string type);
     /*!
+     * Big O notation -> O(1)
      * Request setter for data
      * @param data vector string that will be assigned to the vector data of the Request
      */
     void set_data(std::vector<std::string> data);
 
     //Request Getters
+
     /*!
+    * Big O notation -> O(1)
     * Request getter for type
     * @return object of type string referencing to the string type of the Request
     */
     std::string get_type() const;
     /*!
+     * Big O notation -> O(1)
      * Request getter for data
      * @return object of type vector string referencing to the vector data of the Request
      */
